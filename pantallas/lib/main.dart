@@ -40,15 +40,17 @@ class _MyWidgetState extends State<body> {
           children: <Widget>[
             Text('Hola Mundo', style: TextStyle(fontSize: 30)),
             Text('Bienvenidos a Flutter', style: TextStyle(fontSize: 20)),
+            SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Pantalla2()),
+                  MaterialPageRoute(builder: (context) => Calculadora()),
                 );
               },
-              child: Text('Ir a la pantalla 2'),
+              child: Text('Ir a la calculadora'),
             ),
+            SizedBox(height: 5),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -65,36 +67,118 @@ class _MyWidgetState extends State<body> {
   }
 }
 
-class Pantalla2 extends StatelessWidget {
-  const Pantalla2({super.key});
+class Calculadora extends StatefulWidget {
+  const Calculadora({super.key});
+
+  @override
+  State<Calculadora> createState() => _MyCalculadora();
+}
+
+class _MyCalculadora extends State<Calculadora> {
+  final TextEditingController _num1 = TextEditingController();
+  final TextEditingController _num2 = TextEditingController();
+
+  String _resultado = '';
+
+  void _calcular(String operador) {
+    double num1 = double.tryParse(_num1.text) ?? 0;
+    double num2 = double.tryParse(_num2.text) ?? 0;
+    double res = 0;
+
+    switch (operador) {
+      case '+':
+        res = num1 + num2;
+        break;
+      case '-':
+        res = num1 - num2;
+        break;
+      case '*':
+        res = num1 * num2;
+        break;
+      case '/':
+        res = num1 / num2;
+        break;
+    }
+
+    setState(() {
+      _resultado = 'Resultado: $res';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Pantalla 2'), leading: null),
+      appBar: AppBar(title: Text('Calculadora 📱'), leading: null),
       body: Center(
         child: Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.all(10),
-          height: 250,
+          padding: const EdgeInsets.all(5),
+          height: 500,
           width: 500,
           child: Column(
             children: [
               Text('Calculadora', style: TextStyle(fontSize: 30)),
+              SizedBox(height: 10),
               TextField(
+                controller: _num1,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Primer Numero',
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 15),
               TextField(
+                controller: _num2,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Segundo Numero',
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 20),
+              Text(
+                _resultado,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: () => _calcular('+'),
+                    child: Text('+'),
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () => _calcular('-'),
+                    child: Text('-'),
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () => _calcular('*'),
+                    child: Text('*'),
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () => _calcular('/'),
+                    child: Text('/'),
+                  ),
+                ],
+              ),
+              SizedBox(height: 40),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => body()),
+                  );
+                },
+                child: Text('Ir a la pantalla 1'),
+              ),
+              SizedBox(height: 5),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -140,14 +224,15 @@ class Pantalla3 extends StatelessWidget {
               },
               child: Text('Ir a la pantalla 1'),
             ),
+            SizedBox(height: 5),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Pantalla2()),
+                  MaterialPageRoute(builder: (context) => Calculadora()),
                 );
               },
-              child: Text('Ir a la pantalla 2'),
+              child: Text('Ir a la calculadora'),
             ),
           ],
         ),
