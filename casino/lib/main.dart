@@ -86,21 +86,18 @@ class _casinoBodyState extends State<casinoBody> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Card(
-                color: Colors.black12,
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Image.asset(width: 200, height: 200, _images[index1]),
                 ),
               ),
               Card(
-                color: Colors.black12,
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Image.asset(width: 200, height: 200, _images[index2]),
                 ),
               ),
               Card(
-                color: Colors.black12,
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Image.asset(width: 200, height: 200, _images[index3]),
